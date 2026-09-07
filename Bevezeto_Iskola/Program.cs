@@ -310,7 +310,14 @@ namespace Bevezeto_Iskola
         {
             foreach (var item in tanulok)
             {
-                Console.Write($"{item}\n");
+                string[] seged = item.Split(' ');
+                string ki = "";
+
+                foreach(var i in seged)
+                {
+                    ki += i.ToUpper().First() + ". ";
+                }
+                Console.Write($"{ki}\n");
             }
         }
 
