@@ -371,7 +371,19 @@ namespace Bevezeto_Iskola
 
         static void Main(string[] args)
         {
-            F07();
+            List<Tanulo> tanulok = new List<Tanulo>();
+
+            tanulok.Add(new Tanulo("Anna", 2001, 4.5, "14/b"));
+            tanulok.Add(new Tanulo("Bea", 2003, 3.5, "12/c"));
+            tanulok.Add(new Tanulo("Claire", 2005, 4.7, "11/a"));
+            tanulok.Add(new Tanulo("Sarah", 2002, 2.5, "13/e"));
+            tanulok.Add(new Tanulo("Jess", 2004, 4.5, "10/b"));
+
+
+            foreach (Tanulo t in tanulok)
+            {
+                Console.WriteLine(t);
+            }
         }
     }
 }
