@@ -159,11 +159,219 @@ namespace Bevezeto_Iskola
             } while (szam != tipp);
         }
 
+        static void F06()
+        {
+            int[] szamok = new int[15];
+            for (int i = 0; i < szamok.Length; i++)
+            {
+                szamok[i] = rnd.Next(-100, 101);
+            }
 
+            string ki = "";
+
+            for (int i = 0; i < 15; i++)
+            {
+                ki += szamok[i];
+                if(i < szamok.Length -1)
+                {
+                    ki += ", ";
+                }
+            }
+
+            Console.WriteLine(ki);
+
+            Console.WriteLine($"Számok összeg: {szamok.Sum()}");
+            Console.WriteLine($"Számok átlaga: {szamok.Average()}");
+            Console.WriteLine($"Legkisebb szám: {szamok.Min()}");
+            Console.WriteLine($"Legnagyobb szám: {szamok.Max()}");
+
+            int osszespoz = 0;
+
+            foreach (int i in szamok)
+            {
+                if (i > 0) 
+                {
+                    osszespoz++;
+                }
+            }
+            Console.WriteLine($"Összes pozítiv szám: {osszespoz}");
+
+            int osszesneg = 0;
+
+            foreach (int i in szamok)
+            {
+                if (i < 0)
+                {
+                    osszesneg++;
+                }
+            }
+            Console.WriteLine($"Összes negatív szám: {osszesneg}");
+
+            int osszespar = 0;
+
+            foreach (int i in szamok)
+            {
+                if (i %2 == 0)
+                {
+                    osszespar++;
+                }
+            }
+            Console.WriteLine($"Összes páros szám: {osszespar}");
+
+            //Rendező algoritmus
+
+            //közvetlen kiválasztás
+            //for (int i = 0; i < szamok.Length-1; i++)
+            //{
+            //    for (int j = i+1; j < szamok.Length; j++)
+            //    {
+            //        if (szamok[j] < szamok[i])
+            //        {
+            //            int seged = szamok[i];
+            //            szamok[i] = szamok[j];
+            //            szamok[j] = seged;
+            //        }
+            //    }
+            //}
+
+            //buborékos
+            for (int i = 0; i < szamok.Length - 1; i++)
+            {
+                for (int j = szamok.Length-1; j > i; j--)
+                {
+                    if (szamok[j] < szamok[j -1])
+                    {
+                        if (szamok[j] < szamok[j - 1])
+                        {
+                            int seged = szamok[j];
+                            szamok[j] = szamok[j - 1];
+                            szamok[j - 1] = seged;
+                        }
+                    }
+                }
+            }
+
+
+            foreach (int i in szamok)
+            {
+                Console.Write($"{i} ");
+            }
+            Console.WriteLine();
+
+        }
+
+        static void SW01(List<string> tanulok, string nev)
+        {
+            Console.Write("Adja meg az új tanuló nevét: ");
+            nev = Console.ReadLine();
+
+            if (!tanulok.Contains(nev))
+            {
+                tanulok.Add(nev);
+                Console.WriteLine($"{nev} hozzá lett addva a tanulók listájához!");
+            }
+            else
+            {
+                Console.WriteLine("Ez a tanuló már szerepel a listában!");
+            }
+        }
+
+        static void SW02(List<string> tanulok, string nev)
+        {
+            Console.Write("Adja meg a törölni kivánt tanuló nevét: ");
+            nev = Console.ReadLine();
+
+            if (tanulok.Contains(nev))
+            {
+                tanulok.Remove(nev);
+                Console.WriteLine($"{nev} törölve lett a tanulók listájáből!");
+            }
+            else
+            {
+                Console.WriteLine("Ez a tanuló már nem szerepel a listában!");
+            }
+        }
+
+        static void SW03(List<string> tanulok, string nev)
+        {
+            Console.Write("Adja meg a kereset tanuló nevét: ");
+            nev = Console.ReadLine();
+
+            if (tanulok.Contains(nev))
+            {
+                Console.WriteLine($"{nev} szerepel tanulók listájában!");
+            }
+            else
+            {
+                Console.WriteLine($"{nev} nem szerepel tanulók listájában!");
+            }
+        }
+        static void SW06(List<string> tanulok, string nev)
+        {
+            foreach (var item in tanulok)
+            {
+                Console.Write($"{item}\n");
+            }
+        }
+
+        static void F07()
+        {
+            List<string> tanulok = new List<string>();
+            bool kilep = false;
+
+            do
+            {
+                Console.WriteLine("Tanulok listája,\n1. Új tanuló hozzá adása\n2. Tanuló törlése\n3. Szereppel-e a tanuló a listában\n4.Tanulók száma\n5. Tanulók ABC sorrenbe rendezése\n6. Tanulok kilistázása\n7. Kilépés\n");
+                Console.Write("Bemenet: ");
+                string be = Console.ReadLine().First().ToString();
+                Console.WriteLine();
+
+                string nev = "";
+
+                switch (be)
+                {
+                    case "1":
+                        SW01(tanulok, nev);
+                        break;
+
+                    case "2":
+                        SW02(tanulok, nev);
+                        break;
+                        
+                    case "3":
+                        SW03(tanulok, nev);
+                        break;
+                        
+                    case "4":
+                        Console.WriteLine($"{tanulok.Count} tanuló van a tanulók listában");
+                        break;
+                        
+                    case "5":
+                        tanulok.Sort();
+                        Console.WriteLine("A tanulók névsorba lettek rendezve!");
+                        break;
+                        
+                    case "6":
+                        SW06(tanulok, nev);
+                        break;
+
+                    case "7":
+                        Console.WriteLine("Kilépés...");
+                        kilep = true;
+                        break;
+
+                    default:
+                        Console.WriteLine("Az értelmezett bemenetek a lista sorszámai!");
+                        break;
+                }
+                Console.WriteLine();
+
+            }while (!kilep);
+        }
 
         static void Main(string[] args)
         {
-            F05();
+            F07();
         }
     }
 }
